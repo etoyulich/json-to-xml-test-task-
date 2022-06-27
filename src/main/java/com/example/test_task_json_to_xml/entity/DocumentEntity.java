@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Table(name = "documents", schema = "user")
 public class DocumentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -29,13 +29,12 @@ public class DocumentEntity {
     private LocalDate issueDate;
 
     @Column(name = "type", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private DocumentType documentType;
+    private String documentType;
 
     public DocumentEntity(DocumentDto dto) {
         series = dto.getSeries();
         number = dto.getNumber();
         issueDate = dto.getIssueDate();
-        documentType = dto.getDocumentType();
+        documentType = dto.getType();
     }
 }

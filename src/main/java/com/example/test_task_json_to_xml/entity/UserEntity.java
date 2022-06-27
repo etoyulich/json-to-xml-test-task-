@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Table(name = "users", schema = "user")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -29,8 +29,7 @@ public class UserEntity {
     private String patronymic;
 
     @Column(name = "gender", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private Gender gender;
+    private String gender;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "document_id", nullable = false, referencedColumnName = "id")
@@ -44,6 +43,7 @@ public class UserEntity {
         name = dto.getName();
         patronymic = dto.getPatronymic();
         birthDate = dto.getBirthDate();
+        gender = dto.getGender();
         document = new DocumentEntity(dto.getDocument());
     }
 }
