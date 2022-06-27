@@ -1,5 +1,6 @@
 package com.example.test_task_json_to_xml.entity;
 
+import com.example.test_task_json_to_xml.dto.UserCreationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,4 +38,12 @@ public class UserEntity {
 
     @Column(name = "birthDate", nullable = false)
     private LocalDate birthDate;
+
+    public UserEntity(UserCreationDto dto) {
+        surname = dto.getSurname();
+        name = dto.getName();
+        patronymic = dto.getPatronymic();
+        birthDate = dto.getBirthDate();
+        document = new DocumentEntity(dto.getDocument());
+    }
 }
