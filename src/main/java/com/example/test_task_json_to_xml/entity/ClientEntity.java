@@ -1,6 +1,6 @@
 package com.example.test_task_json_to_xml.entity;
 
-import com.example.test_task_json_to_xml.dto.UserCreationDto;
+import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "users", schema = "user")
-public class UserEntity {
+@Table(name = "clients", schema = "client")
+public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,10 +35,10 @@ public class UserEntity {
     @JoinColumn(name = "document_id", nullable = false, referencedColumnName = "id")
     private DocumentEntity document;
 
-    @Column(name = "birthDate", nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    public UserEntity(UserCreationDto dto) {
+    public ClientEntity(ClientCreationDto dto) {
         surname = dto.getSurname();
         name = dto.getName();
         patronymic = dto.getPatronymic();

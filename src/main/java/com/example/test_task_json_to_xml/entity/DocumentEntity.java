@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "documents", schema = "user")
+@Table(name = "documents", schema = "client")
 public class DocumentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class DocumentEntity {
     @Column(name = "number", nullable = false)
     private String number;
 
-    @Column(name = "issueDate", nullable = false)
+    @Column(name = "issue_date", nullable = false)
     private LocalDate issueDate;
 
     @Column(name = "type", nullable = false)
