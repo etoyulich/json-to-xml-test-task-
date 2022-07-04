@@ -1,6 +1,7 @@
 package com.example.test_task_json_to_xml.entity;
 
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,5 +46,17 @@ public class ClientEntity {
         birthDate = dto.getBirthDate();
         gender = dto.getGender();
         document = new DocumentEntity(dto.getDocument());
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " surname :\"" + surname + "\"," +
+                " name :\"" + name + "\"," +
+                " patronymic :\"" + patronymic + "\"," +
+                " gender :\"" + gender + "\"," +
+                " document :" + document + "," +
+                " birthDate :\"" + birthDate + "\"" +
+                '}';
     }
 }

@@ -37,4 +37,14 @@ public class DocumentEntity {
         issueDate = dto.getIssueDate();
         documentType = dto.getType();
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "series : \"" + series + '\"' +
+                ", number : \"" + number + '\"' +
+                ", issueDate : \"" + issueDate + '\"' +
+                ", documentType : \"" + documentType + '\"' +
+                '}';
+    }
 }
