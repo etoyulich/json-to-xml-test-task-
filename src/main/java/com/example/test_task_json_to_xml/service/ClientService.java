@@ -9,8 +9,11 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.CDATASection;
 
 @Service
 public class ClientService {
@@ -28,6 +31,17 @@ public class ClientService {
         ClientEntity entity = new ClientEntity(dto);
         documentDao.save(entity.getDocument());
         userDao.save(entity);
+
+        System.out.println(entity);
+
+        JSONObject jsonClient = new JSONObject(entity.toString());
+        System.out.println(jsonClient);
+
+        String xmlText = XML.toString(jsonClient);
+        System.out.println(xmlText);
+
+     //   CDATASection cdataSection =
+
         try (
             CloseableHttpClient client = HttpClients.createDefault();
             CloseableHttpResponse response = client.execute(new HttpGet("http://localhost:8181/"));
