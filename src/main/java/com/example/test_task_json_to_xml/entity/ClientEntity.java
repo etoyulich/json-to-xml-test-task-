@@ -51,15 +51,4 @@ public class ClientEntity {
         document = new DocumentEntity(dto.getDocument());
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " surname :\"" + surname + "\"," +
-                " name :\"" + name + "\"," +
-                " patronymic :\"" + patronymic + "\"," +
-                " gender :\"" + gender + "\"," +
-                " document :" + document + "," +
-                " birthDate :\"" + birthDate + "\"" +
-                '}';
-    }
 }
