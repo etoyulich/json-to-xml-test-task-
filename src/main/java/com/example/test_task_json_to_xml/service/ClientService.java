@@ -1,7 +1,7 @@
 package com.example.test_task_json_to_xml.service;
 
 import com.example.test_task_json_to_xml.dao.DocumentDao;
-import com.example.test_task_json_to_xml.dao.UserDao;
+import com.example.test_task_json_to_xml.dao.ClientDao;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -37,19 +36,19 @@ import java.net.URI;
 @Service
 public class ClientService {
 
-    private final UserDao userDao;
+    private final ClientDao clientDao;
     private final DocumentDao documentDao;
 
     @Autowired
-    public ClientService(UserDao userDao, DocumentDao documentDao) {
-        this.userDao = userDao;
+    public ClientService(ClientDao clientDao, DocumentDao documentDao) {
+        this.clientDao = clientDao;
         this.documentDao = documentDao;
     }
 
     public void createNewClient(ClientCreationDto dto) throws Exception {
         ClientEntity entity = new ClientEntity(dto);
         documentDao.save(entity.getDocument());
-        userDao.save(entity);
+        clientDao.save(entity);
 
         System.out.println(entity);
 
@@ -57,11 +56,7 @@ public class ClientService {
         JSONObject client = new JSONObject(dto);
         person.put("person", client);
 
-        System.out.println(person);
-
         String xmlText = XML.toString(person);
-
-        System.out.println(xmlText);
 
         Document doc = convertToCdata(xmlText);
         xmlText = prettyPrint(doc);
@@ -94,6 +89,7 @@ public class ClientService {
 
     }
 
+    //TODO сделать рекурсию и что вообще должно быть в этой cdata....
     private Document convertToCdata(String data) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setValidating(true);

@@ -4,5 +4,5 @@ import com.example.test_task_json_to_xml.entity.ClientEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface UserDao extends CrudRepository<ClientEntity, Long> {
+public interface ClientDao extends CrudRepository<ClientEntity, Long> {
 }
