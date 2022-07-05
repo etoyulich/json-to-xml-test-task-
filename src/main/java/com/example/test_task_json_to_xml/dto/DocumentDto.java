@@ -19,4 +19,13 @@ public class DocumentDto {
 
     private String type;
 
+    @Override
+    public String toString() {
+        return "{" +
+                "series :" + series +
+                ", number :" + number +
+                ", issueDate :" + issueDate +
+                ", type :" + type +
+                '}';
+    }
 }

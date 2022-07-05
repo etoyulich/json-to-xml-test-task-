@@ -22,4 +22,16 @@ public class ClientCreationDto {
     private String gender;
 
     private DocumentDto document;
+
+    @Override
+    public String toString() {
+        return "{" +
+                "name :" + name +
+                ", surname :" + surname +
+                ", patronymic :" + patronymic +
+                ", birthDate :" + birthDate +
+                ", gender : " + gender +
+                ", document :" + document +
+                '}';
+    }
 }
