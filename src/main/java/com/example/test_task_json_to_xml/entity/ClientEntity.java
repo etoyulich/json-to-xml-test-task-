@@ -39,6 +39,9 @@ public class ClientEntity {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    @Column(name = "answer")
+    private String answer;
+
     public ClientEntity(ClientCreationDto dto) {
         surname = dto.getSurname();
         name = dto.getName();
