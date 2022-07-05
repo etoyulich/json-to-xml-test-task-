@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -22,9 +23,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
@@ -57,9 +56,7 @@ public class ClientService {
         person.put("person", client);
 
         String xmlText = XML.toString(person);
-
-        Document doc = convertToCdata(xmlText);
-        xmlText = prettyPrint(doc);
+        xmlText = convertToCdata(xmlText);
 
         System.out.println(xmlText);
 
@@ -89,8 +86,7 @@ public class ClientService {
 
     }
 
-    //TODO сделать рекурсию и что вообще должно быть в этой cdata....
-    private Document convertToCdata(String data) throws ParserConfigurationException, IOException, SAXException {
+    private String convertToCdata(String data) throws ParserConfigurationException, IOException, SAXException, TransformerException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setValidating(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -99,41 +95,29 @@ public class ClientService {
         NodeList elements = doc.getDocumentElement().getChildNodes();
 
         for (int i = 0; i < elements.getLength(); i++) {
-            Node node = elements.item(i);
-            System.out.println(node.getNodeName());
-            if(node.hasChildNodes()){
-                for (int j = 0; j < node.getChildNodes().getLength(); j++) {
-//                    CDATASection cdata = doc.createCDATASection(node.getChildNodes().item(j).getTextContent());
-//                    node.getChildNodes().item(j).setTextContent(String.valueOf(cdata));
-                }
-            }
-            if(!node.hasChildNodes()){
-//                CDATASection cdata = doc.createCDATASection(node.getTextContent());
-//                elements.item(i).setTextContent(String.valueOf(cdata));
-            }
+            convertNode(elements.item(i), doc);
         }
-       // System.out.println(data);
 
-        try {
-            prettyPrint(doc);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return doc;
-
-    }
-
-    public static String prettyPrint(Document xml) throws Exception {
         StringWriter writer = new StringWriter();
         Transformer tf = TransformerFactory.newInstance().newTransformer();
         tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         tf.setOutputProperty(OutputKeys.INDENT, "yes");
         tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         Writer out = new StringWriter();
-        tf.transform(new DOMSource(xml), new StreamResult(out));
-
-        tf.transform(new DOMSource(xml), new StreamResult(writer));
-        // System.out.println(out);
+        tf.transform(new DOMSource(doc), new StreamResult(out));
+        tf.transform(new DOMSource(doc), new StreamResult(writer));
         return writer.toString();
+    }
+
+    private void convertNode(Node node, Document doc){
+        if(!node.hasChildNodes()){
+            CDATASection cdata = doc.createCDATASection(node.getTextContent());
+            node.setTextContent(String.valueOf(cdata));
+        }
+        else {
+            for (int i = 0; i < node.getChildNodes().getLength(); i++) {
+                convertNode(node.getChildNodes().item(i), doc);
+            }
+        }
     }
 }
