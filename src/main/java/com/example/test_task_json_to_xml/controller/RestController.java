@@ -17,7 +17,7 @@ public class RestController {
     }
 
     @PostMapping("")
-    public void createNewUser(@RequestBody ClientCreationDto dto){
+    public void createNewUser(@RequestBody ClientCreationDto dto) throws Exception {
         clientService.createNewClient(dto);
     }
 }
