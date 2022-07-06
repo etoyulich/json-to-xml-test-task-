@@ -46,7 +46,7 @@ public class ClientService {
         this.documentDao = documentDao;
     }
 
-    public void createNewClient(ClientCreationDto dto) throws Exception {
+    public String createNewClient(ClientCreationDto dto) throws Exception {
         ClientEntity entity = new ClientEntity(dto);
         documentDao.save(entity.getDocument());
         clientDao.save(entity);
@@ -70,9 +70,15 @@ public class ClientService {
         httpGet.setURI(uri);
         CloseableHttpResponse response = httpClient.execute(httpGet);
         HttpEntity httpEntity = response.getEntity();
-        System.out.println(EntityUtils.toString(httpEntity));
+        //System.out.println(EntityUtils.toString(httpEntity));
+
+        String answer = EntityUtils.toString(httpEntity);
+        entity.setAnswer(answer);
+        clientDao.save(entity);
+
         httpClient.close();
 
+        return answer;
     }
 
     private String convertToCdata(String data) throws ParserConfigurationException, IOException, SAXException, TransformerException {
