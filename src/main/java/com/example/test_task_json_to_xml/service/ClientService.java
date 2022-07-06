@@ -4,11 +4,13 @@ import com.example.test_task_json_to_xml.dao.DocumentDao;
 import com.example.test_task_json_to_xml.dao.ClientDao;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,20 +62,6 @@ public class ClientService {
 
         System.out.println(xmlText);
 
-//        try (
-//            CloseableHttpClient httpClient = HttpClients.createDefault();
-//            CloseableHttpResponse response = httpClient.execute(new HttpGet("http://localhost:8181/"))
-//        ){
-//            HttpEntity httpEntity = response.getEntity();
-//
-//            if(entity != null){
-//                String data = httpEntity.toString();
-//                System.out.println(data);
-//            }
-//        }catch (Throwable cause){
-//            cause.printStackTrace();
-//        }
-
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://localhost:8181/");
         URI uri = new URIBuilder(httpGet.getURI())
@@ -81,8 +69,9 @@ public class ClientService {
                 .build();
         httpGet.setURI(uri);
         CloseableHttpResponse response = httpClient.execute(httpGet);
+        HttpEntity httpEntity = response.getEntity();
+        System.out.println(EntityUtils.toString(httpEntity));
         httpClient.close();
-        System.out.println(response);
 
     }
 
