@@ -51,8 +51,6 @@ public class ClientService {
         documentDao.save(entity.getDocument());
         clientDao.save(entity);
 
-        System.out.println(entity);
-
         JSONObject person = new JSONObject();
         JSONObject client = new JSONObject(dto);
         person.put("person", client);
@@ -89,6 +87,7 @@ public class ClientService {
 
         NodeList elements = doc.getDocumentElement().getChildNodes();
 
+        //TODO переделать
         for (int i = 0; i < elements.getLength(); i++) {
             convertNode(elements.item(i), doc);
         }
