@@ -17,7 +17,7 @@ public class DocumentDto {
 
     private LocalDate issueDate;
 
-    private String type;
+    private DocumentType type;
 
     @Override
     public String toString() {

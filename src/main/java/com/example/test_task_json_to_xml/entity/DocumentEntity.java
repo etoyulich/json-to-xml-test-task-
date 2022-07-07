@@ -29,7 +29,8 @@ public class DocumentEntity {
     private LocalDate issueDate;
 
     @Column(name = "type", nullable = false)
-    private String documentType;
+    @Enumerated(EnumType.STRING)
+    private DocumentType documentType;
 
     public DocumentEntity(DocumentDto dto) {
         series = dto.getSeries();

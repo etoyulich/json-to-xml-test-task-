@@ -30,7 +30,8 @@ public class ClientEntity {
     private String patronymic;
 
     @Column(name = "gender", nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "document_id", nullable = false, referencedColumnName = "id")
