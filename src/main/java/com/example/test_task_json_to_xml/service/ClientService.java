@@ -5,10 +5,15 @@ import com.example.test_task_json_to_xml.dao.ClientDao;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -56,25 +61,58 @@ public class ClientService {
         person.put("person", client);
 
         String xmlText = XML.toString(person);
-        xmlText = convertToCdata(xmlText);
+       // xmlText = convertToCdata(xmlText);
 
+        xmlText = "<![CDATA[" + xmlText + "]]";
         System.out.println(xmlText);
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8181/");
-        URI uri = new URIBuilder(httpGet.getURI())
-                .addParameter("xml", xmlText)
-                .build();
-        httpGet.setURI(uri);
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-        HttpEntity httpEntity = response.getEntity();
-        //System.out.println(EntityUtils.toString(httpEntity));
+        String soapBody = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                "    <Body>\n" +
+                "        <getCountryRequest xmlns=\"http://www.baeldung.com/springsoap/gen\">\n" +
+                "            <name><![CDATA[ <person>\n" +
+                "<name>Тест</name>\n" +
+                "<surname>Тестов</surname>\n" +
+                "<patronymic>Тестович</patronymic>\n" +
+                "<birthDate>1990-01-01</birthDate>\n" +
+                "<gender>MAN</gender>\n" +
+                "<document>\n" +
+                "<series>1333</series>\n" +
+                "<number>112233</number>\n" +
+                "<type>PASSPORT</type>\n" +
+                "<issueDate>2020-01-01</issueDate>\n" +
+                "</document>\n" +
+                "</person>]]></name>\n" +
+                "        </getCountryRequest>\n" +
+                "    </Body>\n" +
+                "</Envelope>";
 
-        String answer = EntityUtils.toString(httpEntity);
+
+
+        HttpClient httpclient = new DefaultHttpClient();
+        // You can get below parameters from SoapUI's Raw request if you are using that tool
+        StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+        // URL of request
+        HttpPost post = new HttpPost("http://localhost:8181/ws");
+        post.setHeader("SOAPAction", "getCountryRequest");
+        post.setEntity(strEntity);
+
+        // Execute request
+        HttpResponse response = httpclient.execute(post);
+        HttpEntity respEntity = response.getEntity();
+
+        String answer = "";
+        if (respEntity != null) {
+            answer = EntityUtils.toString(respEntity);
+
+
+        } else {
+            System.err.println("No Response");
+        }
+
         entity.setAnswer(answer);
         clientDao.save(entity);
 
-        httpClient.close();
+        //httpClient.close();
 
         return answer;
     }
@@ -87,9 +125,12 @@ public class ClientService {
 
         NodeList elements = doc.getDocumentElement().getChildNodes();
 
+        CDATASection cdata = doc.createCDATASection(doc.getDocumentElement().getTextContent());
+        doc.getDocumentElement().setNodeValue(String.valueOf(cdata));
+
         //TODO переделать
         for (int i = 0; i < elements.getLength(); i++) {
-            convertNode(elements.item(i), doc);
+
         }
 
         StringWriter writer = new StringWriter();
