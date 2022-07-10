@@ -68,8 +68,8 @@ public class ClientService {
 
         String soapBody = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
                 "    <Body>\n" +
-                "        <getCountryRequest xmlns=\"http://www.baeldung.com/springsoap/gen\">\n" +
-                "            <name><![CDATA[ <person>\n" +
+                "        <getClientRequest xmlns=\"http://www.example.com/springsoap/gen\">\n" +
+                "            <xml><![CDATA[ <person>\n" +
                 "<name>Тест</name>\n" +
                 "<surname>Тестов</surname>\n" +
                 "<patronymic>Тестович</patronymic>\n" +
@@ -81,8 +81,8 @@ public class ClientService {
                 "<type>PASSPORT</type>\n" +
                 "<issueDate>2020-01-01</issueDate>\n" +
                 "</document>\n" +
-                "</person>]]></name>\n" +
-                "        </getCountryRequest>\n" +
+                "</person>]]></xml>\n" +
+                "        </getClientRequest>\n" +
                 "    </Body>\n" +
                 "</Envelope>";
 
@@ -93,7 +93,7 @@ public class ClientService {
         StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
         // URL of request
         HttpPost post = new HttpPost("http://localhost:8181/ws");
-        post.setHeader("SOAPAction", "getCountryRequest");
+        post.setHeader("SOAPAction", "getClientRequest");
         post.setEntity(strEntity);
 
         // Execute request
@@ -117,42 +117,4 @@ public class ClientService {
         return answer;
     }
 
-    private String convertToCdata(String data) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setValidating(true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new InputSource(new StringReader(data)));
-
-        NodeList elements = doc.getDocumentElement().getChildNodes();
-
-        CDATASection cdata = doc.createCDATASection(doc.getDocumentElement().getTextContent());
-        doc.getDocumentElement().setNodeValue(String.valueOf(cdata));
-
-        //TODO переделать
-        for (int i = 0; i < elements.getLength(); i++) {
-
-        }
-
-        StringWriter writer = new StringWriter();
-        Transformer tf = TransformerFactory.newInstance().newTransformer();
-        tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tf.setOutputProperty(OutputKeys.INDENT, "yes");
-        tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        Writer out = new StringWriter();
-        tf.transform(new DOMSource(doc), new StreamResult(out));
-        tf.transform(new DOMSource(doc), new StreamResult(writer));
-        return writer.toString();
-    }
-
-    private void convertNode(Node node, Document doc){
-        if(!node.hasChildNodes()){
-            CDATASection cdata = doc.createCDATASection(node.getTextContent());
-            node.setTextContent(String.valueOf(cdata));
-        }
-        else {
-            for (int i = 0; i < node.getChildNodes().getLength(); i++) {
-                convertNode(node.getChildNodes().item(i), doc);
-            }
-        }
-    }
 }
