@@ -55,9 +55,9 @@ public class ClientService {
 
         String soapBody = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
                 "    <Body>\n" +
-                "        <getCountryRequest xmlns=\"http://www.baeldung.com/springsoap/gen\">\n" +
-                "            <name><" + xmlText +  "></name>\n" +
-                "        </getCountryRequest>\n" +
+                "        <getClientRequest xmlns=\"http://www.example.com/springsoap/gen\">\n" +
+                "            <xml><" + xmlText +  "></xml>\n" +
+                "        </getClientRequest>\n" +
                 "    </Body>\n" +
                 "</Envelope>";
 
@@ -66,7 +66,7 @@ public class ClientService {
         List<Header> headers = new ArrayList<>();
         Header header = new BasicHeader(HttpHeaders.CONTENT_TYPE, "text/xml");
         headers.add(header);
-        header = new BasicHeader("SOAPAction", "getCountryRequest");
+        header = new BasicHeader("SOAPAction", "getClientRequest");
         headers.add(header);
 
         HttpClient httpclient = HttpClients.custom().setDefaultHeaders(headers).build();
@@ -86,7 +86,7 @@ public class ClientService {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(new StringReader(answer)));
 
-            NodeList nodeList = doc.getElementsByTagName("ns2:country");
+            NodeList nodeList = doc.getElementsByTagName("ns2:response");
             answer = nodeList.item(0).getTextContent();
 
             System.out.println(nodeList.item(0).getTextContent());
