@@ -1,7 +1,6 @@
 package com.example.test_task_json_to_xml.entity;
 
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
