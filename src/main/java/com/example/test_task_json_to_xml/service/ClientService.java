@@ -1,7 +1,7 @@
 package com.example.test_task_json_to_xml.service;
 
-import com.example.test_task_json_to_xml.dao.ClientDao;
-import com.example.test_task_json_to_xml.dao.DocumentDao;
+import com.example.test_task_json_to_xml.dao.impl.ClientDaoImpl;
+import com.example.test_task_json_to_xml.dao.impl.DocumentDaoImpl;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
 import org.apache.http.Header;
@@ -31,11 +31,11 @@ import java.util.List;
 @Service
 public class ClientService {
 
-    private final ClientDao clientDao;
-    private final DocumentDao documentDao;
+    private final ClientDaoImpl clientDao;
+    private final DocumentDaoImpl documentDao;
 
     @Autowired
-    public ClientService(ClientDao clientDao, DocumentDao documentDao) {
+    public ClientService(ClientDaoImpl clientDao, DocumentDaoImpl documentDao) {
         this.clientDao = clientDao;
         this.documentDao = documentDao;
     }
@@ -88,8 +88,6 @@ public class ClientService {
 
             NodeList nodeList = doc.getElementsByTagName("ns2:response");
             answer = nodeList.item(0).getTextContent();
-
-            System.out.println(nodeList.item(0).getTextContent());
         } else {
             System.err.println("No Response");
         }
