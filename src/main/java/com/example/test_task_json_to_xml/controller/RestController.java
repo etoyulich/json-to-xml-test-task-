@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
@@ -16,8 +18,8 @@ public class RestController {
         this.clientService = clientService;
     }
 
-    @PostMapping("")
-    public String createNewUser(@RequestBody ClientCreationDto dto) throws Exception {
+    @PostMapping()
+    public String createNewUser(@RequestBody @Valid ClientCreationDto dto) throws Exception {
         return clientService.createNewClient(dto);
     }
 }
