@@ -32,7 +32,7 @@ public class ClientEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "document_id", nullable = false, referencedColumnName = "id")
     private DocumentEntity document;
 
