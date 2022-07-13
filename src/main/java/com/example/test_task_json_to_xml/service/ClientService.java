@@ -4,6 +4,8 @@ import com.example.test_task_json_to_xml.dao.impl.ClientDaoImpl;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -14,8 +16,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -25,6 +25,7 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +46,12 @@ public class ClientService {
         ClientEntity entity = mapper.convertValue(dto, ClientEntity.class);
         clientDao.save(entity);
 
-        JSONObject person = new JSONObject();
-        JSONObject client = new JSONObject(dto);
-        person.put("person", client);
+        XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.registerModule(new JavaTimeModule());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        xmlMapper.setDateFormat(df);
+        String xmlText = xmlMapper.writeValueAsString(dto);
 
-        String xmlText = XML.toString(person);
         xmlText = "![CDATA[" + xmlText + "]]";
 
         String soapBody = "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
