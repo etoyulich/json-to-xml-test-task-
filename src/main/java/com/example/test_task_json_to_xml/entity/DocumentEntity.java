@@ -32,10 +32,4 @@ public class DocumentEntity {
     @Enumerated(EnumType.STRING)
     private DocumentType type;
 
-    public DocumentEntity(DocumentDto dto) {
-        series = dto.getSeries();
-        number = dto.getNumber();
-        issueDate = dto.getIssueDate();
-        documentType = dto.getType();
-    }
 }
