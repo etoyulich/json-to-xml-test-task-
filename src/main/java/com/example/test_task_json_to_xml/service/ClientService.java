@@ -3,6 +3,7 @@ package com.example.test_task_json_to_xml.service;
 import com.example.test_task_json_to_xml.dao.impl.ClientDaoImpl;
 import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import com.example.test_task_json_to_xml.entity.ClientEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -31,15 +32,17 @@ import java.util.List;
 public class ClientService {
 
     private final ClientDaoImpl clientDao;
+    private final ObjectMapper mapper;
 
     @Autowired
-    public ClientService(ClientDaoImpl clientDao) {
+    public ClientService(ClientDaoImpl clientDao, ObjectMapper mapper) {
         this.clientDao = clientDao;
+        this.mapper = mapper;
     }
 
     public String createNewClient(ClientCreationDto dto) throws Exception {
 
-        ClientEntity entity = new ClientEntity(dto);
+        ClientEntity entity = mapper.convertValue(dto, ClientEntity.class);
         clientDao.save(entity);
 
         JSONObject person = new JSONObject();
