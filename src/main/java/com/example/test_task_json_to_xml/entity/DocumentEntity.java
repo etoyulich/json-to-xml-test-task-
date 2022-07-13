@@ -30,7 +30,7 @@ public class DocumentEntity {
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private DocumentType documentType;
+    private DocumentType type;
 
     public DocumentEntity(DocumentDto dto) {
         series = dto.getSeries();
