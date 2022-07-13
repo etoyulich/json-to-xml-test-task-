@@ -1,6 +1,5 @@
 package com.example.test_task_json_to_xml.entity;
 
-import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,14 +40,5 @@ public class ClientEntity {
 
     @Column(name = "answer")
     private String answer;
-
-    public ClientEntity(ClientCreationDto dto) {
-        surname = dto.getSurname();
-        name = dto.getName();
-        patronymic = dto.getPatronymic();
-        birthDate = dto.getBirthDate();
-        gender = dto.getGender();
-        document = new DocumentEntity(dto.getDocument());
-    }
 
 }
