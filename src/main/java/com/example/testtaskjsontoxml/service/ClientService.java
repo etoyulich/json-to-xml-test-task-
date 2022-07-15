@@ -16,6 +16,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -34,6 +36,8 @@ public class ClientService {
 
     private final ClientDaoImpl clientDao;
     private final ObjectMapper mapper;
+
+    private static final Logger logger = LogManager.getLogger(ClientService.class);
 
     @Autowired
     public ClientService(ClientDaoImpl clientDao, ObjectMapper mapper) {
