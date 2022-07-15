@@ -1,4 +1,4 @@
-package com.example.test_task_json_to_xml.swagger;
+package com.example.testtaskjsontoxml.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,5 @@
-package com.example.test_task_json_to_xml.entity;
+package com.example.testtaskjsontoxml.entity;
 
-import com.example.test_task_json_to_xml.dto.DocumentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

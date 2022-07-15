@@ -1,4 +1,4 @@
-package com.example.test_task_json_to_xml.entity;
+package com.example.testtaskjsontoxml.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

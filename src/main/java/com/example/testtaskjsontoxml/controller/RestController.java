@@ -1,13 +1,12 @@
-package com.example.test_task_json_to_xml.controller;
+package com.example.testtaskjsontoxml.controller;
 
-import com.example.test_task_json_to_xml.dto.ClientCreationDto;
-import com.example.test_task_json_to_xml.service.ClientService;
+import com.example.testtaskjsontoxml.dto.ClientCreationDto;
+import com.example.testtaskjsontoxml.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 

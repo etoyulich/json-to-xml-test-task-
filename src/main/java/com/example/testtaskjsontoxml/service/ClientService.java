@@ -1,8 +1,8 @@
-package com.example.test_task_json_to_xml.service;
+package com.example.testtaskjsontoxml.service;
 
-import com.example.test_task_json_to_xml.dao.impl.ClientDaoImpl;
-import com.example.test_task_json_to_xml.dto.ClientCreationDto;
-import com.example.test_task_json_to_xml.entity.ClientEntity;
+import com.example.testtaskjsontoxml.dao.impl.ClientDaoImpl;
+import com.example.testtaskjsontoxml.dto.ClientCreationDto;
+import com.example.testtaskjsontoxml.entity.ClientEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

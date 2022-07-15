@@ -1,4 +1,4 @@
-package com.example.test_task_json_to_xml;
+package com.example.testtaskjsontoxml;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
