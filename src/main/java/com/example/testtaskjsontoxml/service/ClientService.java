@@ -1,38 +1,20 @@
 package com.example.testtaskjsontoxml.service;
 
+import com.example.testtaskjsontoxml.service.newgen.ClientWSService;
 import com.example.testtaskjsontoxml.dao.impl.ClientDaoImpl;
 import com.example.testtaskjsontoxml.dto.ClientCreationDto;
 import com.example.testtaskjsontoxml.entity.ClientEntity;
 import com.example.testtaskjsontoxml.service.newgen.ClientInterface;
-import com.example.testtaskjsontoxml.service.newgen.ServiceName;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -105,8 +87,8 @@ public class ClientService {
 //            logger.warn("No response!");
 //        }
 
-        ServiceName service = new ServiceName();
-        ClientInterface clientService = service.getPortName();
+        ClientWSService service = new ClientWSService();
+        ClientInterface clientService = service.getClientWSPortBinding();
 
         String body = clientService.getClientRequest(xmlText);
 

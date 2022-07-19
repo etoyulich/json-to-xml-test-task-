@@ -1,22 +1,13 @@
 
 package com.example.testtaskjsontoxml.service.newgen;
 
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebParam;
-import jakarta.jws.WebResult;
-import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.xml.ws.Action;
-import jakarta.xml.ws.RequestWrapper;
-import jakarta.xml.ws.ResponseWrapper;
-
-//import javax.jws.WebMethod;
-//import javax.jws.WebParam;
-//import javax.jws.WebResult;
-//import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
-//import javax.xml.ws.RequestWrapper;
-//import javax.xml.ws.ResponseWrapper;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
 
 
 /**
@@ -26,7 +17,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  */
 @WebService(name = "ClientInterface", targetNamespace = "http://www.example.com/springsoap/gen")
-@SOAPBinding(style = SOAPBinding.Style.RPC)
 @XmlSeeAlso({
     ObjectFactory.class
 })
@@ -41,9 +31,8 @@ public interface ClientInterface {
      */
     @WebMethod
     @WebResult(name = "response", targetNamespace = "")
-    @Action(input = "http://www.example.com/springsoap/gen/ws/getClientRequest", output = "http://www.example.com/springsoap/gen/ws/getClientResponse")
-//    @RequestWrapper(localName = "getClientRequest", targetNamespace = "http://www.example.com/springsoap/gen", className = "com.example.testtaskjsontoxml.service.newgen.GetClientRequest")
-//    @ResponseWrapper(localName = "getClientResponse", targetNamespace = "http://www.example.com/springsoap/gen", className = "com.example.testtaskjsontoxml.service.newgen.GetClientResponse")
+    @RequestWrapper(localName = "getClientRequest", targetNamespace = "http://www.example.com/springsoap/gen", className = "com.example.testtaskjsontoxml.service.newgen")
+    @ResponseWrapper(localName = "getClientResponse", targetNamespace = "http://www.example.com/springsoap/gen", className = "com.example.testtaskjsontoxml.service.newgen")
     public String getClientRequest(
         @WebParam(name = "request", targetNamespace = "")
         String request);
