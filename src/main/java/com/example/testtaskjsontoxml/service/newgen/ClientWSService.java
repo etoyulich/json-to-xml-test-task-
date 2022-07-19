@@ -69,9 +69,9 @@ public class ClientWSService
      * @return
      *     returns ClientInterface
      */
-    @WebEndpoint(name = "ClientWSPortBinding")
+    @WebEndpoint(name = "ClientInterface")
     public ClientInterface getClientWSPortBinding() {
-        return super.getPort(new QName("http://www.example.com/springsoap/gen", "ClientWSPortBinding"), ClientInterface.class);
+        return super.getPort(new QName("http://www.example.com/springsoap/gen", "ClientWSPortBindingSoap11"), ClientInterface.class);
     }
 
     /**
@@ -81,9 +81,9 @@ public class ClientWSService
      * @return
      *     returns ClientInterface
      */
-    @WebEndpoint(name = "ClientWSPortBinding")
+    @WebEndpoint(name = "ClientInterface")
     public ClientInterface getClientWSPortBinding(WebServiceFeature... features) {
-        return super.getPort(new QName("http://www.example.com/springsoap/gen", "ClientWSPortBinding"), ClientInterface.class, features);
+        return super.getPort(new QName("http://www.example.com/springsoap/gen", "ClientWSPortBindingSoap11"), ClientInterface.class, features);
     }
 
     private static URL __getWsdlLocation() {

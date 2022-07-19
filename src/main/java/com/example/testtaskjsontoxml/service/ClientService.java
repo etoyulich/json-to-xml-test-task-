@@ -87,8 +87,8 @@ public class ClientService {
 //            logger.warn("No response!");
 //        }
 
-        ClientWSService service = new ClientWSService();
-        ClientInterface clientService = service.getClientWSPortBinding();
+        javax.xml.ws.Service service = new ClientWSService();
+        ClientInterface clientService = service.getPort(ClientInterface.class);
 
         String body = clientService.getClientRequest(xmlText);
 
