@@ -26,14 +26,11 @@ public class ClientWSService
     private final static QName CLIENTWSSERVICE_QNAME = new QName("http://www.example.com/springsoap/gen", "ClientWSService");
 
     static {
-        URL url = null;
         WebServiceException e = null;
-        try {
-            url = new URL("http://localhost:8181/ws/client?wsdl");
-        } catch (MalformedURLException ex) {
-            e = new WebServiceException(ex);
+        CLIENTWSSERVICE_WSDL_LOCATION = ClientWSService.class.getClassLoader().getResource("client.wsdl");
+        if(CLIENTWSSERVICE_WSDL_LOCATION == null){
+            e = new WebServiceException("Can't find find wsdl file in classpath.");
         }
-        CLIENTWSSERVICE_WSDL_LOCATION = url;
         CLIENTWSSERVICE_EXCEPTION = e;
     }
 
