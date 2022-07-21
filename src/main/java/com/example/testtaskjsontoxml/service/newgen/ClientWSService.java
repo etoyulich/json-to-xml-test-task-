@@ -1,16 +1,12 @@
 
 package com.example.testtaskjsontoxml.service.newgen;
 
-import com.example.testtaskjsontoxml.service.newgen.ClientInterface;
+import org.springframework.beans.factory.annotation.Value;
 
+import javax.xml.namespace.QName;
+import javax.xml.ws.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebEndpoint;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
 
 
 /**
@@ -19,7 +15,8 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ClientWSService", targetNamespace = "http://www.example.com/springsoap/gen", wsdlLocation = "http://localhost:8181/ws/client.wsdl")
+
+@WebServiceClient(name = "ClientWSService", targetNamespace = "http://www.example.com/springsoap/gen")
 public class ClientWSService
     extends Service
 {
@@ -32,7 +29,7 @@ public class ClientWSService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8181/ws/client.wsdl");
+            url = new URL("http://localhost:8181/ws/client?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
