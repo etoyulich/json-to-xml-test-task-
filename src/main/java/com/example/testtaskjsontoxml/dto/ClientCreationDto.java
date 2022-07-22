@@ -1,6 +1,7 @@
-package com.example.test_task_json_to_xml.dto;
+package com.example.testtaskjsontoxml.dto;
 
-import com.example.test_task_json_to_xml.entity.Gender;
+import com.example.testtaskjsontoxml.entity.Gender;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonRootName(value = "person")
 public class ClientCreationDto {
     @NotBlank(message = "Name is mandatory")
     private String name;

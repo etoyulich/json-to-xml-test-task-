@@ -1,6 +1,5 @@
-package com.example.test_task_json_to_xml.entity;
+package com.example.testtaskjsontoxml.entity;
 
-import com.example.test_task_json_to_xml.dto.DocumentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,12 +29,6 @@ public class DocumentEntity {
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private DocumentType documentType;
+    private DocumentType type;
 
-    public DocumentEntity(DocumentDto dto) {
-        series = dto.getSeries();
-        number = dto.getNumber();
-        issueDate = dto.getIssueDate();
-        documentType = dto.getType();
-    }
 }

@@ -1,7 +1,7 @@
-package com.example.test_task_json_to_xml.dao.impl;
+package com.example.testtaskjsontoxml.dao.impl;
 
-import com.example.test_task_json_to_xml.dao.ClientDao;
-import com.example.test_task_json_to_xml.entity.ClientEntity;
+import com.example.testtaskjsontoxml.dao.ClientDao;
+import com.example.testtaskjsontoxml.entity.ClientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

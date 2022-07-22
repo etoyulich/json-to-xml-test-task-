@@ -1,6 +1,5 @@
-package com.example.test_task_json_to_xml.entity;
+package com.example.testtaskjsontoxml.entity;
 
-import com.example.test_task_json_to_xml.dto.ClientCreationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +31,7 @@ public class ClientEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "document_id", nullable = false, referencedColumnName = "id")
     private DocumentEntity document;
 
@@ -41,14 +40,5 @@ public class ClientEntity {
 
     @Column(name = "answer")
     private String answer;
-
-    public ClientEntity(ClientCreationDto dto) {
-        surname = dto.getSurname();
-        name = dto.getName();
-        patronymic = dto.getPatronymic();
-        birthDate = dto.getBirthDate();
-        gender = dto.getGender();
-        document = new DocumentEntity(dto.getDocument());
-    }
 
 }

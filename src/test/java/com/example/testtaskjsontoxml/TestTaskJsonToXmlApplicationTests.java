@@ -1,4 +1,4 @@
-package com.example.test_task_json_to_xml;
+package com.example.testtaskjsontoxml;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
